@@ -1,0 +1,15 @@
+/target/
+/test-output/
+/.settings/
+/*.css
+/*.js
+/*.log
+/*.lck
+*.class
+.settings/
+.loadpath
+*.tmp
+.metadata
+.project
+/*/*/target/
+.DS_Store

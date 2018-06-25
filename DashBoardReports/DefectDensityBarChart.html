@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawVisualization);
+
+      function drawVisualization() {
+        // Some raw data (not necessarily accurate)
+        var data = google.visualization.arrayToDataTable(
+          [
+         ['Component', 'P0', 'P1', 'P2', 'P3', 'P4'],
+         ['Login',  20,      12,         12,             32,           11],
+         ['Inbox',  5,      23,        2,             22,          22],
+         ['Sent Items',  10,      22,        44,             11,           39],
+         ['Module 1',  28,      33,        23,             16,           21],
+         ['Module 2',  44,      22,         21,             10,          36]
+      ]);
+
+    var options = {
+      title : 'Defect breakdown by component',
+      vAxis: {title: 'Defect Count'},
+      hAxis: {title: 'Components'},
+      seriesType: 'bars',
+      series: {5: {type: 'line'}}
+    };
+
+    var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>

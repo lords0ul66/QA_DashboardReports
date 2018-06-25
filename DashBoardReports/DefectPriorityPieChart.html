@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>GALE QA DASHBOARD</title>
+  </head>
+  <body>
+  <div id="piechart"></div>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawVisualization);
+
+// Draw the chart and set the chart values
+function drawVisualization() {
+  var data = google.visualization.arrayToDataTable([
+  ['Defect', 'Priority'],
+  ['P0', 5],
+  ['P1', 5],
+  ['P2', 2],
+  ['P3', 3],
+  ['P4', 8]
+]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'Defects grouped based on Priority', 'width':400, 'height':300};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+</script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>GALE QA DASHBOARD</title>
+    <link rel="stylesheet" href="common.css">
+  </head>
+  <body>
+   <table cellpadding="10" style="width:100%">
+    <div>
+  <tr bgcolor="#E50DF7">
+    <th>Component</th>
+    <th>StoryID</th>
+    <th>TestCase</th> 
+    <th>Defect</th>
+    <th>HealthStatus</th>
+  </tr>
+</div>
+  <tr bgcolor="#F5E5F1">
+    <td>Login</td>
+    <td>AUT-1</td> 
+    <td>AUT-31</td>
+    <td>AUT-35</td>
+    <td bgcolor="#FF0000"> No Coverage</td>
+  </tr>
+  <tr bgcolor="#C2F0F9">
+     <td>Login</td>
+    <td>AUT-1 Green</td> 
+    <td>AUT-31 Blue</td>
+    <td>AUT-35 Amber</td>
+    <td bgcolor="#00FF00"></td>
+  </tr>
+  <tr bgcolor="#F5E5F1">
+     <td>Login</td>
+    <td>AUT-1 Green</td> 
+    <td>AUT-31 Blue</td>
+    <td>AUT-35 Amber</td>
+    <td bgcolor="#FFC200"></td>
+  </tr>
+  <tr bgcolor="#C2F0F9">
+     <td >Login</td>
+    <td>AUT-1 Green</td> 
+    <td>AUT-31 Blue</td>
+    <td>AUT-35 Amber</td>
+    <td bgcolor="#FFC200"></td>
+  </tr>
+</table>
+
+<br>
+<br>
+<br>
+ <div id="table_div"></div>
+  </body>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['table']});
+      google.charts.setOnLoadCallback(drawVisualization);
+
+      function drawVisualization() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Component');
+        data.addColumn('string', 'Story ID');
+        data.addColumn('string', 'Test Case ID');
+        data.addColumn('string', 'Defect ID');
+        data.addColumn('string', 'Health Status');
+        data.addRows([
+          ['Login',  'AUT-1', 'AUT-31', 'AUT-36', 'Good'],
+          ['Inbox',   'AUT-1', 'AUT-31', 'AUT-36', 'Good']
+        ]);
+
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+        table.draw(data, {showRowNumber: true, width: '80%', height: '30%'});
+      }
+    </script>
+</html>

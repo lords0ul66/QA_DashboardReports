@@ -1,0 +1,33 @@
+response = given()
+				.auth().preemptive().basic("chrisgale2020@gmail.com", "chrisgayle2020")
+				.when().get("http://192.168.56.103:8080/rest/api/latest/issue/AUT-35").then().extract().response().asString();
+		
+		System.out.println("Custom Field value is " + from(response).getString("fields.labels"));
+		
+		 response = given()
+				.auth().preemptive().basic("chrisgale2020@gmail.com", "chrisgayle2020")
+				.when().get("http://192.168.56.103:8080/rest/api/latest/issue/createmeta?projectKeys=AUT&expand=projects.issuetypes.fields").then().extract().response().asString();
+		
+		List<String> IssueTypelist = from(response).getList("projects.issuetypes.fields.customfield_10201.name");
+		System.out.println("Custom Field value is " + IssueTypelist);
+		
+
+		List<String> ListSubTasksSummary = from(response).getList("fields.subtasks.fields.summary");
+		System.out.println("SubTasks Summary for this issue is "  + ListSubTasksSummary);
+		
+		List<String> ListSubTasksIssueType = from(response).getList("fields.subtasks.fields.issuetype.name");
+		System.out.println("Issue Type for SubTasks is "  + ListSubTasksIssueType);
+		
+		List<String> ListSubTasksIssuePriority = from(response).getList("fields.subtasks.fields.priority.name");
+		System.out.println("Issue Type for SubTasks is "  + ListSubTasksIssuePriority);
+		
+		response = given()
+				.auth().preemptive().basic("chrisgale2020@gmail.com", "chrisgayle2020")
+				.when().get("http://192.168.56.103:8080/rest/api/latest/issue/AUT-36?expand").then().extract().response().asString();
+		
+		System.out.println("Custom Field value is " + from(response).getString("fields.customfield_10201.value"));
+		
+		Collection< String > lines = new ArrayList< String >();
+		lines.add("abcd");
+		File htmlTemplateFile = new File(System.getProperty("user.dir") + "/DashBoardReports/.html");
+		FileUtils.writeLines(htmlTemplateFile, lines);

@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['table']});
+      google.charts.setOnLoadCallback(drawVisualization);
+
+      function drawVisualization() {
+
+var data = new google.visualization.DataTable();
+data.addColumn('string', 'Component');
+        data.addColumn('string', 'Story ID');
+        data.addColumn('string', 'Test Case ID');
+        data.addColumn('string', 'Defect ID');
+        data.addColumn('string', 'Health Status');
+        data.addRows([
+
+          ['Sent Items' , 'AUT-28' ,'', '', 'Not Good'],
+          ['Sent Items' , 'AUT-17' ,'AUT-45', '', 'Good'],
+          ['Sent Items' , 'AUT-16' ,'AUT-44', '', 'Good'],
+          ['Sent Items' , 'AUT-15' ,'AUT-43', '', 'Good'],
+          ['Sent Items' , 'AUT-14' ,'', '', 'Not Good'],
+          ['Sent Items' , 'AUT-13' ,'AUT-42', '', 'Good'],
+          ['Module1' , 'AUT-30' ,'', 'AUT-73', 'Not Good'],
+          ['Module1' , 'AUT-21' ,'AUT-53,AUT-54', 'AUT-55', 'Good'],
+          ['Module1' , 'AUT-20' ,'AUT-50', 'AUT-51,AUT-52', 'Good'],
+          ['Module1' , 'AUT-19' ,'AUT-49', '', 'Good'],
+          ['Module1' , 'AUT-18' ,'AUT-46', 'AUT-47,AUT-48', 'Good'],
+          ['Login' , 'AUT-12' ,'AUT-40', 'AUT-41', 'Good'],
+          ['Login' , 'AUT-5' ,'', '', 'Not Good'],
+          ['Login' , 'AUT-4' ,'', '', 'Not Good'],
+          ['Login' , 'AUT-3' ,'', '', 'Not Good'],
+          ['Login' , 'AUT-1' ,'AUT-31,AUT-32,AUT-35,AUT-36', 'AUT-33,AUT-34', 'Good'],
+          ['module2' , 'AUT-29' ,'AUT-69,AUT-70,AUT-71', 'AUT-72', 'Good'],
+          ['module2' , 'AUT-26' ,'', '', 'Not Good'],
+          ['module2' , 'AUT-25' ,'AUT-58,AUT-59,AUT-60', 'AUT-61,AUT-62,AUT-63', 'Good'],
+          ['module2' , 'AUT-24' ,'', '', 'Not Good'],
+          ['module2' , 'AUT-23' ,'', '', 'Not Good'],
+          ['module2' , 'AUT-22' ,'AUT-56,AUT-57', '', 'Good'],
+          ['Inbox' , 'AUT-27' ,'AUT-64', 'AUT-65,AUT-66,AUT-67,AUT-68', 'Good'],
+          ['Inbox' , 'AUT-11' ,'AUT-37', 'AUT-38,AUT-39', 'Good'],
+          ['Inbox' , 'AUT-10' ,'AUT-74,AUT-85', 'AUT-75', 'Good'],
+          ['Inbox' , 'AUT-9' ,'AUT-76', '', 'Good'],
+          ['Inbox' , 'AUT-8' ,'AUT-77,AUT-78,AUT-79', 'AUT-80,AUT-81,AUT-82', 'Good'],
+          ['Inbox' , 'AUT-7' ,'AUT-83', '', 'Good'],
+          ['Inbox' , 'AUT-6' ,'', '', 'Not Good'],
+          ['Inbox' , 'AUT-2' ,'', '', 'Not Good'],
+        ]);
+var table = new google.visualization.Table(document.getElementById('chart_div'));
+
+        table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+}
+    </script>
+  </head>
+  <body>
+ <div id="chart_div"></div>
+</body>
+</html>

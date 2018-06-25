@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawVisualization);
+
+      function drawVisualization() {
+
+var data = google.visualization.arrayToDataTable([
+  ['Defect', 'Priority'],
+  ['P0', 5],
+  ['P1', 5],
+  ['P2', 2],
+  ['P3', 3],
+  ['P4', 8]
+]);
+var options = {'title':'Defects grouped based on Priority', 'width':400, 'height':300};
+var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+}
+    </script>
+  </head>
+  <body>
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
+</body>
+</html>
