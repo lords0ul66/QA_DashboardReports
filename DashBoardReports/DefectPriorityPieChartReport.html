@@ -9,13 +9,12 @@
 
 var data = google.visualization.arrayToDataTable([
   ['Defect', 'Priority'],
-  ['P0', 5],
-  ['P1', 5],
-  ['P2', 2],
-  ['P3', 3],
-  ['P4', 8]
+  ['High' ,9],
+  ['Highest' ,5],
+  ['Low' ,2],
+  ['Medium' ,8],
 ]);
-var options = {'title':'Defects grouped based on Priority', 'width':400, 'height':300};
+var options = {'title':'Defects grouped based on Priority', is3D: true, 'width':600, 'height':600};
 var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
     chart.draw(data, options);
 }

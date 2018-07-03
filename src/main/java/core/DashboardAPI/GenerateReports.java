@@ -2,6 +2,8 @@ package core.DashboardAPI;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -10,7 +12,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
 
 import com.google.common.collect.Multimap;
 
@@ -67,20 +68,43 @@ public class GenerateReports {
 		FileUtils.writeLines(htmlTemplateFile, lines);
 	}
 	
-	@Test
-	public static void GenerateDefectBreakdownByReleaseReport() throws IOException {
+	
+	public static void GenerateDefectBreakdownByReleaseReport(String[][] arr) throws IOException {
+		
 		Collection<String> lines = new ArrayList<String>();
 		lines.add(Constants.STATIC_CONTENT1.replace("##ChartType##", "corechart"));
-		lines.add("var data = google.visualization.arrayToDataTable([\n" + 
-				"         ['Release', 'P0', 'P1', 'P2', 'P3', 'P4'],\n" + 
-				"         ['Sanity',    20,      12,         12,             32,           11],\n" + 
-				"         ['Regression',    5,      23,        2,             22,          22],\n" + 
-				"         ['Release 1',  10,      22,        44,             11,           39],\n" + 
-				"         ['Release 2',  28,      33,        23,             16,           21],\n" + 
-				"         ['Release 3',  44,      22,         21,             10,          36]\n" + 
-				"      ]);");
+		String staticContent1 = "var data = google.visualization.arrayToDataTable([";
+		lines.add(staticContent1);
+		String dynamicContent = "[";
+		for(int x=0;x<arr.length;x++) {
+	    	for(int y=0;y<arr[x].length;y++) {
+	    		
+	    		try
+	    		{
+	    		     NumberFormat.getInstance().parse(arr[x][y]);
+	    		     dynamicContent = dynamicContent + arr[x][y] + ",";
+	    		}
+	    		catch(ParseException e)
+	    		{
+	    			dynamicContent = dynamicContent + "'" + arr[x][y] + "',";
+	    		}
+	    		
+	    			if(y==arr[x].length-1)
+		    			dynamicContent = dynamicContent + "]\n";
+	    	}
+	    	if(x==arr.length-1)
+	    		dynamicContent = dynamicContent;
+	    	else
+	    		dynamicContent = dynamicContent + "[";
+	    }
+		
+		dynamicContent = dynamicContent.replaceAll(",]", "],");
+		lines.add(dynamicContent + "]);");
+				
+		String staticContent3 = "		]);";
 		lines.add("var options = {\n" + 
-				"      title : 'Defect breakdown by releases',\n" + 
+				"      title : 'Defect breakdown by Releases',\n" + 
+				"	   is3D	 : true,\n"+
 				"      vAxis: {title: 'Defect Count'},\n" + 
 				"      hAxis: {title: 'Releases'},\n" + 
 				"      seriesType: 'bars',\n" + 
@@ -95,22 +119,43 @@ public class GenerateReports {
 		FileUtils.writeLines(htmlTemplateFile, lines);
 	}
 	
-	@Test
-	public static void GenerateDefectBreakdownByComponentReport() throws IOException {
+	
+	public static void GenerateDefectBreakdownByComponentReport(String[][] arr) throws IOException {
+		
 		Collection<String> lines = new ArrayList<String>();
 		lines.add(Constants.STATIC_CONTENT1.replace("##ChartType##", "corechart"));
-		lines.add("var data = google.visualization.arrayToDataTable(\n" + 
-				"          [\n" + 
-				"         ['Component', 'P0', 'P1', 'P2', 'P3', 'P4'],\n" + 
-				"         ['Login',  20,      12,         12,             32,           11],\n" + 
-				"         ['Inbox',  5,      23,        2,             22,          22],\n" + 
-				"         ['Sent Items',  10,      22,        44,             11,           39],\n" + 
-				"         ['Module 1',  28,      33,        23,             16,           21],\n" + 
-				"         ['Module 2',  44,      22,         21,             10,          36]\n" + 
-				"      ]);");
+		String staticContent1 = "var data = google.visualization.arrayToDataTable([";
+		lines.add(staticContent1);
+		String dynamicContent = "[";
+		for(int x=0;x<arr.length;x++) {
+	    	for(int y=0;y<arr[x].length;y++) {
+	    		
+	    		try
+	    		{
+	    		     NumberFormat.getInstance().parse(arr[x][y]);
+	    		     dynamicContent = dynamicContent + arr[x][y] + ",";
+	    		}
+	    		catch(ParseException e)
+	    		{
+	    			dynamicContent = dynamicContent + "'" + arr[x][y] + "',";
+	    		}
+	    		
+	    			if(y==arr[x].length-1)
+		    			dynamicContent = dynamicContent + "]\n";
+	    	}
+	    	if(x==arr.length-1)
+	    		dynamicContent = dynamicContent;
+	    	else
+	    		dynamicContent = dynamicContent + "[";
+	    }
 		
+		dynamicContent = dynamicContent.replaceAll(",]", "],");
+		lines.add(dynamicContent + "]);");
+				
+		String staticContent3 = "		]);";
 		lines.add("var options = {\n" + 
 				"      title : 'Defect breakdown by component',\n" + 
+				"	   is3D	 : true,\n"+
 				"      vAxis: {title: 'Defect Count'},\n" + 
 				"      hAxis: {title: 'Components'},\n" + 
 				"      seriesType: 'bars',\n" + 
@@ -125,19 +170,26 @@ public class GenerateReports {
 		FileUtils.writeLines(htmlTemplateFile, lines);
 	}
 	
-	@Test
-	public static void GenerateDefectPriorityPieChartReport() throws IOException {
+	
+	public static void GenerateDefectPriorityPieChartReport(Multimap<String,String> PriorityDefectMap) throws IOException {
+		String dynamicContent= "";
 		Collection<String> lines = new ArrayList<String>();
 		lines.add(Constants.STATIC_CONTENT1.replace("##ChartType##", "corechart"));
-		lines.add("var data = google.visualization.arrayToDataTable([\n" + 
-				"  ['Defect', 'Priority'],\n" + 
-				"  ['P0', 5],\n" + 
-				"  ['P1', 5],\n" + 
-				"  ['P2', 2],\n" + 
-				"  ['P3', 3],\n" + 
-				"  ['P4', 8]\n" + 
-				"]);");
-		lines.add("var options = {'title':'Defects grouped based on Priority', 'width':400, 'height':300};");
+		String staticContent1 = "var data = google.visualization.arrayToDataTable([\n" + 
+		                        "  ['Defect', 'Priority'],\n";  
+				Set keySet = new HashSet();
+				keySet = PriorityDefectMap.keySet();
+			    Iterator keyIterator = keySet.iterator();
+			    while (keyIterator.hasNext() ) {
+			        String priority = (String) keyIterator.next();
+			        List<String> defects = (List<String>) PriorityDefectMap.get(priority);
+			        dynamicContent = dynamicContent + "  ['" + priority + "' ," + defects.size() + "],\n";
+			    }
+
+
+		String staticContent2 = "]);";
+		lines.add(staticContent1+dynamicContent+staticContent2);
+		lines.add("var options = {'title':'Defects grouped based on Priority', is3D: true, 'width':600, 'height':600};");
 		lines.add(Constants.STATIC_CONTENT2.replace("##ChartType##", "PieChart"));
 		lines.add(Constants.STATIC_CONTENT4);
 		lines.add("<div id=\"chart_div\" style=\"width: 900px; height: 500px;\"></div>");

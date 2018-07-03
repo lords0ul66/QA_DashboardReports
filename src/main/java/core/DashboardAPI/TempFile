@@ -31,3 +31,52 @@ response = given()
 		lines.add("abcd");
 		File htmlTemplateFile = new File(System.getProperty("user.dir") + "/DashBoardReports/.html");
 		FileUtils.writeLines(htmlTemplateFile, lines);
+		
+		
+		
+			public static void CreateComponentPriorityDefectMap() {
+		Set keySet = new HashSet();
+		keySet = componenDefectMap.keySet();
+	    Iterator keyIterator = keySet.iterator();
+	    while (keyIterator.hasNext() ) {
+	        String component = (String) keyIterator.next();
+	        List<String> defects = (List<String>) componenDefectMap.get(component);
+	        Multimap<String,String> tempDefectPriorityMap = ArrayListMultimap.create();
+	       for(String defectID: defects) {
+	    	   String tempresponse  = given().spec(requestSpec).when().get(baseURI + "/rest/api/latest/issue/" + defectID + "?fields=priority").then().extract().response().asString();
+	    	   String priority= from(tempresponse).getString("fields.priority.name");
+	    	   tempDefectPriorityMap.put(priority, defectID);
+	       }
+	    }
+	}
+	
+	
+	public static void CreateMapForCompomentPriority() {
+		for(String defect: defectList) {
+			String tempresponse  = given().spec(requestSpec).when().get(baseURI + "/rest/api/latest/issue/" + defect + "?fields=priority&fields=components").then().extract().response().asString();
+			List<String> components= from(tempresponse).getList("fields.components.name");
+			
+			
+		}
+	}
+		
+		
+			        	parentLabels = null;
+	        	parentLabels = GetParentLabel(response);
+        		if(null!=parentLabels)
+        			for(String parentlabel:parentLabels)
+        				labelTestCaseMap.put(parentlabel, issue);
+        		else
+        			labelTestCaseMap.put(label, issue);
+        			
+        			
+        			
+        			
+        			public static List<String> GetParentLabel(String response) {
+		String ParentKeyID = from(response).getString("fields.parent.key");
+		String tempresponse  = given().spec(requestSpec).when().get(baseURI + "/rest/api/latest/issue/" + ParentKeyID + "?fields=labels").then().extract().response().asString();
+		if(null!=from(tempresponse).getList("fields.labels"))
+			return from(tempresponse).getList("fields.labels");
+		else 
+			return null;
+	}

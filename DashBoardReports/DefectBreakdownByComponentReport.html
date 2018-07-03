@@ -7,17 +7,18 @@
 
       function drawVisualization() {
 
-var data = google.visualization.arrayToDataTable(
-          [
-         ['Component', 'P0', 'P1', 'P2', 'P3', 'P4'],
-         ['Login',  20,      12,         12,             32,           11],
-         ['Inbox',  5,      23,        2,             22,          22],
-         ['Sent Items',  10,      22,        44,             11,           39],
-         ['Module 1',  28,      33,        23,             16,           21],
-         ['Module 2',  44,      22,         21,             10,          36]
-      ]);
+var data = google.visualization.arrayToDataTable([
+['Component','High','Low','Medium','Lowest','Highest'],
+['Sent Items',0,0,0,0,0],
+['Module1',3,0,2,0,1],
+['Login',0,0,2,0,1],
+['None',0,0,1,0,0],
+['Inbox',3,1,3,0,3],
+['module2',3,1,0,0,0],
+]);
 var options = {
       title : 'Defect breakdown by component',
+	   is3D	 : true,
       vAxis: {title: 'Defect Count'},
       hAxis: {title: 'Components'},
       seriesType: 'bars',

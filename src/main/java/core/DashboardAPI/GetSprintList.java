@@ -3,6 +3,7 @@ package core.DashboardAPI;
 import static io.restassured.RestAssured.given;
 import static io.restassured.path.json.JsonPath.from;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,11 @@ import org.junit.Test;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+
+import io.restassured.http.ContentType;
+import io.restassured.http.Header;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 
 public class GetSprintList {
 
@@ -38,6 +44,24 @@ public class GetSprintList {
 	
 	
 	@Test
+	public void Test2() {
+		try {
+			File file = new File("/Frameworks/GALE-Alchemy-AutomationTests/GALE-Alchemy-AutomationTests/src/test/resources/inputdata/jsonFiles/usercredentials.json");
+			
+			
+			Header header = new Header("Authorization","Token a656b7c09cc87dcbb22e6d30e2316ca3f0f814ef25c9f6f602edc8b513d62b51");
+			RequestSpecification requestSpec = given().relaxedHTTPSValidation().contentType(ContentType.JSON).body(file);
+			Response response = requestSpec.when().post("https://alchemy-marketing-app-qa.gale.agency/api/auth/login/");
+			//Response response = given().relaxedHTTPSValidation().spec(requestSpec).when().get("https://alchemy-marketing-app-qa.gale.agency/api/core/audience");
+			String strResponse = response.then().extract().asString();
+			System.out.println(from(strResponse).getString("token"));
+		}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+	}
+	
+	
 	public void Test1() throws IOException {
 		
 		String response = given()
